@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body class="gradient-background">
+
+    <div class="container">
+
+        <div class="back-home">
+            <form action="/" method="get">
+                <button type="submit">
+                    <img src="assets/arrow-left.svg" alt="">
+                </button>
+            </form>
+        </div>
+        <h1>New b👀k note</h1>
+
+        <div class="add-book">
+            <form action="/addNote" method="post">
+                <div class="label">
+                    <label for="note">Enter new book note</label>
+                </div>
+                <!-- <input type="text-area" name="note" id="note"> -->
+                <textarea name="note" id="note" required></textarea>
+                <div class="centered-button">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
+
+<footer>
+    Made with 🍆, Jindros - <%= new Date().getFullYear() %>
+</footer>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body class="gradient-background">
+
+    <div class="book-detail-container">
+
+        <div class="back-home">
+            <form action="/" method="get">
+                <button type="submit">
+                    <img src="assets/arrow-left.svg" alt="">
+                </button>
+            </form>
+        </div>
+        <h1>B👀k Notes</h1>
+
+        <div class="container">
+            <div class="book-detail-header">
+                <img src="https://books.google.com/books/content?id=gW36ngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="book cover">
+                <div class="book-info">
+                    <h2>Harry Potter and the philosophers stone</h2>
+                    <table>
+                        <tr>
+                            <td>Authors:</td>
+                            <td>J.K. Rowling</td>
+                        </tr>
+                        <tr>
+                            <td>Published:</td>
+                            <td>1999</td>
+                        </tr>
+                        <tr>
+                            <td>Page count:</td>
+                            <td>364</td>
+                        </tr>
+                        <tr>
+                            <td>Categories:</td>
+                            <td>Juvenile Fiction</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="book-note">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod, in praesentium blanditiis nostrum, fuga dolorem perspiciatis assumenda fugiat aut pariatur dicta natus? Incidunt libero id excepturi accusantium explicabo reprehenderit.</p>
+            </div>
+            <div class="book-note">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod, in praesentium blanditiis nostrum, fuga dolorem perspiciatis assumenda fugiat aut pariatur dicta natus? Incidunt libero id excepturi accusantium explicabo reprehenderit.</p>
+            </div>
+            <div class="addButton">
+                <form action="/addNote" method="get">
+                    <button type="submit">
+                        <img src="assets/plus-lg.svg" alt="Add button with plus icon">
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<footer>
+    Made with 🍆, Jindros - <%= new Date().getFullYear() %>
+</footer>
+</html>

@@ -18,6 +18,14 @@ app.get("/add", (req, res) => {
     res.render("add.ejs");
 });
 
+app.get("/book?:id", (req, res) => {
+    res.render("book.ejs");
+});
+
+app.get("/addNote", (req, res) => {
+    res.render("addNote.ejs");
+});
+
 app.listen(port, () => {
     console.log("Server running at port " + port);
 });
