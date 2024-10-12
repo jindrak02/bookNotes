@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body class="gradient-background">
+
+    <div class="container">
+
+        <h1>B👀k Notes</h1>
+
+        <div class="my-books header">
+            <h3>My Books</h3>
+            <form action="/sort" method="get">
+                <i>
+                    <img src="assets/arrow-down-up.svg" alt="sort icon" width="30px">
+                </i>
+            </form>
+        </div>
+
+        <div class="my-books">
+            <% for(let book of books) { %>
+                <form id="<%= book.bookId %>" action="/book:<%= book.bookId %>" method="get">
+                    <div class="book" onclick="document.getElementById('<%= book.bookId %>').submit();">
+                        <img src=<%= book.bookCover %> alt="book Cover thumbnail">
+                        <h4><%= book.bookTitle %></h4>
+                        <h5><%= book.bookAuthor %></h5>
+                    </div>
+                </form>
+            <% }; %>
+
+            <div class="addButton">
+                <form action="/add" method="get">
+                    <button type="submit">
+                        <img src="assets/plus-lg.svg" alt="">
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+<footer>
+    Made with 🍆, Jindros - <%= new Date().getFullYear() %>
+</footer>
+</html>

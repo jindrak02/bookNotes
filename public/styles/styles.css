@@ -1,0 +1,242 @@
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+}
+
+.gradient-background{
+    background-image: linear-gradient(to bottom,  #121212, #1f2a44);
+    background-size: 100% 300%;
+    animation: gradientMove 10s ease-in-out infinite;
+    border-radius: 20px; 
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.my-books.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 425px;
+    min-width: 350px;
+}
+
+.my-books{
+    display: flex;
+    flex-wrap: wrap;
+    width: 375px;
+}
+
+.book{
+    width: 105px;
+    /* height: 260px; */
+    /* border: white solid 1px; */
+    background-color: #878E88;
+    margin: 10px;
+    border-radius: 5%;
+    padding: 0 0 10px 0;
+}
+
+.book img{
+    width: 105px;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}
+
+.book h4{
+    margin: 5px;
+    font-size: small;
+    color: black;
+}
+
+.book h5{
+    margin: 10px 5px 5px 5px;
+    font-size: small;
+    color: black;
+}
+
+.book.add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.book.add button{
+    background-color: rgba(0, 255, 0, 0);
+    border: 0px;
+}
+
+.book.add img{
+    width: 80px;
+    margin: 20px 0px 20px 0px;
+}
+
+.addButton button{
+    width: 50px;
+    height: 50px;
+    border: 0;
+    color: black;
+    position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    border-radius: 50%;
+}
+
+.addButton button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 388px) {
+    .my-books{
+        justify-content: center;
+        width: auto;
+    }
+
+    .my-books.header{
+        max-width: 425px;
+        min-width: 260px;
+    }
+}
+
+footer{
+    margin-top: 50px;
+    position: fixed;
+    bottom: 0; 
+    width: 100%; 
+    color: white;
+    text-align: center; 
+    padding: 10px 0;
+}
+
+.add-book{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-book form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+}
+
+.add-book form label{
+    margin: 0px;
+    font-size: 20px;
+}
+
+.add-book form input{
+    margin: 0px 0px 20px 0px;
+    font-size: 15px;
+    color: black;
+    width: 350px;
+    height: 40px;
+    border-radius: 10px;
+    text-indent: 5px;
+}
+
+.centered-button{
+    display: flex;
+    justify-content: center;
+}
+
+.add-book form button{
+    background-color: #878E88;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+}
+
+.back-home img{
+    width: 30px;
+}
+
+.back-home button{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background-color: rgba(222, 184, 135, 0);
+    border: none;
+}
+
+/* Info button */
+.info-button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #878E88;
+    color: black;
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    border: none;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+.info-box {
+    visibility: hidden;
+    width: 200px;
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.info-box::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #f9f9f9 transparent transparent transparent;
+}
+
+.info-button:hover .info-box {
+    visibility: visible;
+    opacity: 1;
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+    display: none;
+    text-align: center;
+}

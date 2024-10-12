@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body class="gradient-background">
+
+    <div class="container">
+
+        <div class="back-home">
+            <form action="/" method="get">
+                <button type="submit">
+                    <img src="assets/arrow-left.svg" alt="">
+                </button>
+            </form>
+        </div>
+        <h1>Add new b👀k</h1>
+
+        <div class="add-book">
+            <form action="/add" method="post" onsubmit="return validateISBN();">
+                <div class="label">
+                    <label for="isbn">Enter books ISBN code</label>
+                    <div class="info-button">
+                        ?
+                        <div class="info-box">
+                            Enter the ISBN code in the following format: 9780439064866 - without dashes or spaces or any special signs.
+                        </div>
+                    </div>
+                </div>
+                <input type="text" name="isbn" id="isbn">
+                <div id="error-message" class="error">ISBN must contain exactly 13 digits and only numbers without special characters.</div>
+                <div class="centered-button">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    
+    <script>
+        function validateISBN() {
+            const isbnInput = document.getElementById('isbn').value.trim();
+            const errorMessage = document.getElementById('error-message');
+            const digitCheck = /^\d+$/;
+            errorMessage.style.display = 'none';
+
+            if (isbnInput.length != 13 || !digitCheck.test(isbnInput)) {
+                errorMessage.style.display = 'block';
+                return false;
+            }
+
+            return true;
+
+        }
+    </script>
+</body>
+
+<footer>
+    Made with 🍆, Jindros - <%= new Date().getFullYear() %>
+</footer>
+</html>
