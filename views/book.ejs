@@ -44,14 +44,15 @@
                     </table>
                 </div>
             </div>
-            <div class="book-note">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod, in praesentium blanditiis nostrum, fuga dolorem perspiciatis assumenda fugiat aut pariatur dicta natus? Incidunt libero id excepturi accusantium explicabo reprehenderit.</p>
-            </div>
-            <div class="book-note">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quod, in praesentium blanditiis nostrum, fuga dolorem perspiciatis assumenda fugiat aut pariatur dicta natus? Incidunt libero id excepturi accusantium explicabo reprehenderit.</p>
-            </div>
+
+            <% for(let note of notes) { %>
+                <div class="book-note">
+                    <p><%= note.note_text %></p>
+                </div>
+            <% }; %>
+
             <div class="addButton">
-                <form action="/addNote" method="get">
+                <form action="/addNote/book/<%= book.id %>" method="get">
                     <button type="submit">
                         <img src="/assets/plus-lg.svg" alt="Add button with plus icon">
                     </button>
