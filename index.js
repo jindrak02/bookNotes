@@ -1,25 +1,50 @@
 import express from "express";
+import 'dotenv/config';
+import pg from "pg";
+import bodyParser from "body-parser";
+
+const db = new pg.Client({
+    user: "postgres",
+    host: "localhost",
+    password: process.env.dbPassword,
+    database: "book_notes",
+    port: 5432
+});
+
+db.connect();
 
 const app = express();
 const port = 3000;
 
+app.use(bodyParser.urlencoded( {extended: true} ));
 app.use(express.static("public"));
 
-let books = [
-    {bookISBN: "12BJ23", bookId: 1, bookTitle: "Harry Potter and the philospohers stone", bookAuthor: "J.K. Rowling", bookCover: "https://books.google.com/books/content?id=gW36ngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"},
-    {bookISBN: "12BJ23", bookId: 3, bookTitle: "Harry Potter and the Chamber of Secrets", bookAuthor: "J.K. Rowling", bookCover: "http://books.google.com/books/content?id=Bikg274Y4Q0C&printsec=frontcover&img=1&zoom=1&source=gbs_api"}
-]
+// DB functions
+async function getBooks(){
+    const result = await db.query("SELECT * FROM books;");
+    return result.rows;
+}
 
-app.get("/", (req, res) => {
+async function getBook(id) {
+    const result = await db.query("SELECT * FROM books b WHERE b.id = $1;", [id]);
+    return result.rows[0];
+}
+
+// Route handlers
+app.get("/", async (req, res) => {
+    const books = await getBooks();
     res.render("index.ejs", {books: books});
+    console.log(books);
 });
 
 app.get("/add", (req, res) => {
     res.render("add.ejs");
 });
 
-app.get("/book?:id", (req, res) => {
-    res.render("book.ejs");
+app.get("/book/:id", async (req, res) => {
+    const bookId = req.params.id;
+    const book = await getBook(req.params.id);
+    res.render("book.ejs", {book: book});
 });
 
 app.get("/addNote", (req, res) => {

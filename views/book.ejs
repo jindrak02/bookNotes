@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Notes</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body class="gradient-background">
 
@@ -13,7 +13,7 @@
         <div class="back-home">
             <form action="/" method="get">
                 <button type="submit">
-                    <img src="assets/arrow-left.svg" alt="">
+                    <img src="/assets/arrow-left.svg" alt="">
                 </button>
             </form>
         </div>
@@ -21,25 +21,25 @@
 
         <div class="container">
             <div class="book-detail-header">
-                <img src="https://books.google.com/books/content?id=gW36ngEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api" alt="book cover">
+                <img src="<%= book.cover_url %>" alt="book cover">
                 <div class="book-info">
-                    <h2>Harry Potter and the philosophers stone</h2>
+                    <h2><%= book.book_title %></h2>
                     <table>
                         <tr>
                             <td>Authors:</td>
-                            <td>J.K. Rowling</td>
+                            <td><%= book.author %></td>
                         </tr>
                         <tr>
                             <td>Published:</td>
-                            <td>1999</td>
+                            <td><%= book.published %></td>
                         </tr>
                         <tr>
                             <td>Page count:</td>
-                            <td>364</td>
+                            <td><%= book.page_count %></td>
                         </tr>
                         <tr>
                             <td>Categories:</td>
-                            <td>Juvenile Fiction</td>
+                            <td><%= book.categories %></td>
                         </tr>
                     </table>
                 </div>
@@ -53,7 +53,7 @@
             <div class="addButton">
                 <form action="/addNote" method="get">
                     <button type="submit">
-                        <img src="assets/plus-lg.svg" alt="Add button with plus icon">
+                        <img src="/assets/plus-lg.svg" alt="Add button with plus icon">
                     </button>
                 </form>
             </div>

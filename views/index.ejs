@@ -23,11 +23,11 @@
 
         <div class="my-books">
             <% for(let book of books) { %>
-                <form id="<%= book.bookId %>" action="/book:<%= book.bookId %>" method="get">
-                    <div class="book" onclick="document.getElementById('<%= book.bookId %>').submit();">
-                        <img src=<%= book.bookCover %> alt="book Cover thumbnail">
-                        <h4><%= book.bookTitle %></h4>
-                        <h5><%= book.bookAuthor %></h5>
+                <form id="<%= book.id %>" action="/book/<%= book.id %>" method="get">
+                    <div class="book" onclick="document.getElementById('<%= book.id %>').submit();">
+                        <img src=<%= book.cover_url %> alt="book Cover thumbnail">
+                        <h4><%= book.book_title %></h4>
+                        <h5><%= book.author %></h5>
                     </div>
                 </form>
             <% }; %>
