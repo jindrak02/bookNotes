@@ -2,6 +2,7 @@ import express from "express";
 import 'dotenv/config';
 import pg from "pg";
 import bodyParser from "body-parser";
+import axios from "axios";
 
 const db = new pg.Client({
     user: "postgres",
@@ -19,7 +20,7 @@ const port = 3000;
 app.use(bodyParser.urlencoded( {extended: true} ));
 app.use(express.static("public"));
 
-// DB functions
+// DB and API functions
 async function getBooks(){
 
     try {
@@ -43,7 +44,40 @@ async function getBook(id) {
 }
 
 async function addBook(isbn) {
-    
+
+    try {
+        // Fetching book data from api
+        const response = await axios.get("https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn);
+        
+        if(response.data && response.data.items) {
+            const bookData = response.data.items.map(item => {
+                return {
+                    isbn: item.volumeInfo.industryIdentifiers[1].identifier || "No isbn available",
+                    bookTitle: item.volumeInfo.title || "No title available",
+                    author: item.volumeInfo.authors || "No authors available",
+                    cover_url: item.volumeInfo.imageLinks.thumbnail || item.volumeInfo.imageLinks.smallThumbnail || "",
+                    published: item.volumeInfo.publishedDate || "unknown",
+                    page_count: item.volumeInfo.pageCount || "unknown",
+                    categories: item.volumeInfo.categories || "unknown"
+                }
+            });
+
+            // Adding the book into db
+            try {
+                db.query("INSERT INTO books(isbn, book_title, author, cover_url, published, page_count, categories)VALUES($1, $2, $3, $4, $5, $6, $7);", 
+                    [bookData[0].isbn, bookData[0].bookTitle, bookData[0].author, bookData[0].cover_url, bookData[0].published, bookData[0].page_count, bookData[0].categories]);
+            } catch (error) {
+                console.error("Error inseting API data into database. " + error.stack);
+            }
+
+        } else {
+            console.log("No books found for the provided ISBN");
+        }
+
+    } catch (error) {
+        console.error("Error fetching data from book api with isbn." + error.stack);
+    }
+
 }
 
 async function getNotes(bookId) {
@@ -77,6 +111,13 @@ app.get("/", async (req, res) => {
 
 app.get("/add", (req, res) => {
     res.render("add.ejs");
+});
+
+app.post("/add", async (req, res) => {
+    const isbn = req.body.isbn;
+    let result = await addBook(isbn);
+    console.log(result);
+    res.redirect("/");
 });
 
 app.get("/book/:id", async (req, res) => {
