@@ -15,21 +15,35 @@
         <div class="my-books header">
             <h3>My Books</h3>
             <form action="/sort" method="get">
-                <i>
-                    <img src="assets/arrow-down-up.svg" alt="sort icon" width="30px">
+                <i id="finish-changes">
+                    <img src="assets/pencil-fill.svg" alt="sort icon" width="30px" onclick="hideDeleteButtons()">
+                </i>
+                <i id="start-changes">
+                    <img src="assets/pencil.svg" alt="sort icon" width="30px" onclick="showDeleteButtons()">
                 </i>
             </form>
         </div>
 
         <div class="my-books">
             <% for(let book of books) { %>
-                <form id="<%= book.id %>" action="/book/<%= book.id %>" method="get">
-                    <div class="book" onclick="document.getElementById('<%= book.id %>').submit();">
-                        <img src=<%= book.cover_url %> alt="book Cover thumbnail">
-                        <h4><%= book.book_title %></h4>
-                        <h5><%= book.author %></h5>
+                <div class="book-container">
+                    <form id="<%= book.id %>" action="/book/<%= book.id %>" method="get">
+                        <div class="book" onclick="document.getElementById('<%= book.id %>').submit();">
+                            <img src=<%= book.cover_url %> alt="book Cover thumbnail">
+                            <h4><%= book.book_title %></h4>
+                            <h5><%= book.author %></h5>
+                        </div>
+                    </form>
+                    <div class="delete-button">
+                        <form id="delete<%= book.id %>" action="/delete/book/<%= book.id %>" method="post">
+                            <!-- using method override for DELETE -->
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit">
+                                <img src="/assets/trash3-fill.svg" alt="trashcan icon">
+                            </button>
+                        </form>
                     </div>
-                </form>
+                </div>
             <% }; %>
 
             <div class="addButton">
@@ -43,6 +57,29 @@
 
     </div>
     
+    <script>
+        function showDeleteButtons(){
+            let deleteButtons = document.getElementsByClassName("delete-button");
+            
+            for (let i = 0; i < deleteButtons.length; i++){
+                deleteButtons[i].style.visibility = 'visible';
+            }
+
+            document.getElementById("finish-changes").style.visibility = 'visible';
+            document.getElementById("start-changes").style.visibility = 'hidden';
+        };
+
+        function hideDeleteButtons(){
+            let deleteButtons = document.getElementsByClassName("delete-button");
+            
+            for (let i = 0; i < deleteButtons.length; i++){
+                deleteButtons[i].style.visibility = 'hidden';
+            }
+
+            document.getElementById("finish-changes").style.visibility = 'hidden';
+            document.getElementById("start-changes").style.visibility = 'visible';
+        };
+    </script>
 </body>
 <footer>
     Made with 🍆, Jindros - <%= new Date().getFullYear() %>

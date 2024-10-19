@@ -6,7 +6,7 @@ CREATE TABLE books(
 	author VARCHAR,
 	cover_url VARCHAR,
 	published VARCHAR,
-	page_count INT,
+	page_count VARCHAR(10),
 	categories VARCHAR
 );
 

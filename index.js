@@ -3,6 +3,7 @@ import 'dotenv/config';
 import pg from "pg";
 import bodyParser from "body-parser";
 import axios from "axios";
+import methodOverride from 'method-override';
 
 const db = new pg.Client({
     user: "postgres",
@@ -17,6 +18,7 @@ db.connect();
 const app = express();
 const port = 3000;
 
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded( {extended: true} ));
 app.use(express.static("public"));
 
@@ -24,7 +26,7 @@ app.use(express.static("public"));
 async function getBooks(){
 
     try {
-        const result = await db.query("SELECT * FROM books;");
+        const result = await db.query("SELECT * FROM books ORDER BY id desc;");
         return result.rows;
     } catch (error) {
         console.error("Error executing sql query for books." + error.stack);
@@ -54,11 +56,15 @@ async function addBook(isbn) {
                 return {
                     isbn: item.volumeInfo.industryIdentifiers[1].identifier || "No isbn available",
                     bookTitle: item.volumeInfo.title || "No title available",
-                    author: item.volumeInfo.authors || "No authors available",
-                    cover_url: item.volumeInfo.imageLinks.thumbnail || item.volumeInfo.imageLinks.smallThumbnail || "",
+                    author: item.volumeInfo.authors.join(', ') || "No authors available",
+            
+                    cover_url: item.volumeInfo.imageLinks?.thumbnail || 
+                    item.volumeInfo.imageLinks?.smallThumbnail || 
+                    "https://books.google.cz/googlebooks/images/no_cover_thumb.gif",
+        
                     published: item.volumeInfo.publishedDate || "unknown",
                     page_count: item.volumeInfo.pageCount || "unknown",
-                    categories: item.volumeInfo.categories || "unknown"
+                    categories: item.volumeInfo.categories?.join(', ') || "unknown"
                 }
             });
 
@@ -80,10 +86,23 @@ async function addBook(isbn) {
 
 }
 
+async function deleteBook(id) {
+
+    try {
+        await db.query("DELETE FROM notes WHERE notes.book_id = $1;", [id]);
+        await db.query("DELETE FROM books WHERE books.id = $1;", [id]);
+        
+        return(`Successfully delete book with id ${id}`);
+    } catch (error) {
+        console.error("Error executing sql query deletin book." + error.stack);
+    }
+
+}
+
 async function getNotes(bookId) {
 
     try {
-        const result = await db.query("SELECT * FROM notes WHERE book_id = $1;", [bookId]);
+        const result = await db.query("SELECT * FROM notes WHERE book_id = $1 ORDER BY id desc;", [bookId]);
         return result.rows;
     } catch (error) {
         console.error("Error executing sql query for book notes." + error.stack);
@@ -138,6 +157,13 @@ app.post("/addNote", async (req, res) => {
     await addNote(note, bookId);
 
     res.redirect("/book/" + bookId + "?");
+});
+
+app.post("/delete/book/:id", async (req, res) => {
+    const bookId = req.params.id;
+    await deleteBook(bookId);
+    
+    res.redirect("/");
 });
 
 app.listen(port, () => {

@@ -26,6 +26,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 85vh;
 }
 
 h1 {
@@ -53,9 +54,16 @@ h1 {
     height: 260px;
     /* border: white solid 1px; */
     background-color: #878E88;
-    margin: 10px;
+    margin: 10px 10px 0px 10px;
     border-radius: 5%;
     padding: 0 0 10px 0;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.book:hover {
+    transform: scale(1.05);
 }
 
 .book img{
@@ -68,12 +76,39 @@ h1 {
     margin: 5px;
     font-size: small;
     color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .book h5{
     margin: 10px 5px 5px 5px;
     font-size: small;
     color: black;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-container{
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+#finish-changes{
+    visibility: hidden;
+}
+
+.delete-button{
+    visibility: hidden;
+}
+
+.delete-button button{
+    margin-left: 10px;
+    background-color: #878E88;
+    color: black;
+    border: none;
+    border-radius: 5px;
 }
 
 .book.add{
@@ -121,8 +156,8 @@ h1 {
 }
 
 footer{
-    margin-top: 50px;
-    position: fixed;
+    margin-top: 30px;
+    /* position: fixed; */
     bottom: 0; 
     width: 100%; 
     color: white;
@@ -270,6 +305,8 @@ footer{
 }
 
 .book-note{
+    display: flex;
+    justify-content: space-between;
     background-color: #878E88;
     border-radius: 5px;
     margin: 10px 5px 10px 5px;
@@ -280,6 +317,14 @@ footer{
 .book-note p{
     padding: 10px;
     margin: 0;
+}
+
+.book-note button{
+    padding: 10px;
+    background-color: #878E88;
+    color: black;
+    border: none;
+    border-radius: 5px;
 }
 
 textarea {
