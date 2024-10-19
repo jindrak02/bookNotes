@@ -110,6 +110,17 @@ async function getNotes(bookId) {
     
 }
 
+async function getNote(id) {
+
+    try {
+        const result = await db.query("SELECT * FROM notes WHERE id = $1;", [id]);
+        return result.rows;
+    } catch (error) {
+        console.error("Error executing sql query for book note." + error.stack);
+    }
+    
+}
+
 async function addNote(note, bookId) {
 
     try {
@@ -117,6 +128,30 @@ async function addNote(note, bookId) {
         console.log("Note successfully added.");
     } catch (error) {
         console.error("Error executing sql query for book notes." + error.stack);
+    }
+
+}
+
+async function deleteNote(id) {
+
+    try {
+        await db.query("DELETE FROM notes WHERE notes.id = $1;", [id]);
+        
+        return(`Successfully deleted note with id ${id}`);
+    } catch (error) {
+        console.error("Error executing sql query deleting note." + error.stack);
+    }
+
+}
+
+async function updateNote(text, id) {
+
+    try {
+        await db.query("UPDATE notes SET note_text = $1 WHERE id = $2;", [text, id]);
+        
+        return(`Successfully updated note with id ${id}`);
+    } catch (error) {
+        console.error("Error executing sql query updating note." + error.stack);
     }
 
 }
@@ -164,6 +199,32 @@ app.post("/delete/book/:id", async (req, res) => {
     await deleteBook(bookId);
     
     res.redirect("/");
+});
+
+app.post("/delete/note/:id", async (req, res) => {
+    const noteId = req.params.id;
+    const bookId = req.body.bookId;
+    await deleteNote(noteId);
+
+    res.redirect(`/book/${bookId}?`);
+});
+
+app.get("/update/note/:id", async (req, res) => {
+    const noteId = req.params.id;
+    const bookId = req.query.bookId;
+    const note = await getNote(noteId);
+
+    res.render("editNote.ejs", {bookId: bookId, note: note[0]});
+});
+
+app.post("/update/note/:id", async (req, res) => {
+    const noteId = req.params.id;
+    const bookId = req.body.bookId;
+    const text = req.body.note;
+
+    await updateNote(text, noteId);
+
+    res.redirect(`/book/${bookId}?`);
 });
 
 app.listen(port, () => {

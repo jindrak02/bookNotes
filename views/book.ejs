@@ -48,11 +48,20 @@
             <% for(let note of notes) { %>
                 <div class="book-note">
                     <p><%= note.note_text %></p>
-                    <form id="delete<%= note.id %>" action="/delete/note/<%= note.id %>" method="post">
-                        <button type="submit">
-                            <img src="/assets/trash3-fill.svg" alt="trashcan icon">
-                        </button>
-                    </form>
+                    <div class="note-delete-update">
+                        <form id="delete<%= note.id %>" action="/delete/note/<%= note.id %>" method="post">
+                            <input type="text" name="bookId" value="<%= book.id %>" hidden>
+                            <button type="submit">
+                                <img src="/assets/trash3-fill.svg" alt="trashcan icon">
+                            </button>
+                        </form>
+                        <form id="update<%= note.id %>" action="/update/note/<%= note.id %>" method="get">
+                            <input type="text" name="bookId" value="<%= book.id %>" hidden>
+                            <button type="submit">
+                                <img src="/assets/pencil - black.svg" alt="pencil icon">
+                            </button>
+                        </form>
+                    </div>
                 </div>
             <% }; %>
 

@@ -291,6 +291,10 @@ footer{
     margin: 20px 5px;
 }
 
+.book-detail-header img{
+    min-width: 100px;
+}
+
 .book-info{
     margin: 0 0 0 20px;
 }
@@ -317,6 +321,10 @@ footer{
 .book-note p{
     padding: 10px;
     margin: 0;
+}
+
+.note-delete-update{
+    display: flex;
 }
 
 .book-note button{

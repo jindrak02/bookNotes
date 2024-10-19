@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body class="gradient-background">
+
+    <div class="container">
+
+        <div class="back-home">
+            <form action="/book/<%= bookId %>" method="get">
+                <button type="submit">
+                    <img src="/assets/arrow-left.svg" alt="">
+                </button>
+            </form>
+        </div>
+        <h1>Edit b👀k note</h1>
+
+        <div class="add-book">
+            <form action="/update/note/<%= note.id %>" method="post">
+                <div class="label">
+                    <label for="note">Edit your book note</label>
+                </div>
+                <input type="text" name="bookId" id="bookId" hidden value="<%= bookId %>">
+                <textarea name="note" id="note" required><%= note.note_text %></textarea>
+                <div class="centered-button">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
+
+<footer>
+    Made with 🍆, Jindros - <%= new Date().getFullYear() %>
+</footer>
+</html>
