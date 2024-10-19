@@ -254,6 +254,10 @@ footer{
     transition: opacity 0.3s;
 }
 
+.info-box a{
+    color: black;
+}
+
 .info-box::after {
     content: "";
     position: absolute;
